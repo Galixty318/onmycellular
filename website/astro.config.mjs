@@ -8,6 +8,10 @@ import { defineConfig, fontProviders } from 'astro/config';
 export default defineConfig({
 	site: 'https://galixty318.github.io',
 	base: '/onmycellular',
+	build: {
+		// Keep cached pages self-contained across GitHub Pages deployments.
+		inlineStylesheets: 'always',
+	},
 	integrations: [mdx(), sitemap()],
 	fonts: [
 		{
