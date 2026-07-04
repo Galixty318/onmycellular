@@ -41,8 +41,20 @@ const reviews = defineCollection({
 		}),
 });
 
+const writing = defineCollection({
+	loader: glob({ base: '../content/food writing', pattern: '**/*.{md,mdx}' }),
+	schema: ({ image }) =>
+		z.object({
+			title: z.string().optional(),
+			description: z.string().optional(),
+			pubDate: z.coerce.date().optional(),
+			updatedDate: z.coerce.date().optional(),
+			heroImage: z.optional(image()),
+		}),
+});
+
 const pages = defineCollection({
 	loader: glob({ base: '../content', pattern: '*.md' }),
 });
 
-export const collections = { blog, pages, projects, reviews };
+export const collections = { blog, pages, projects, reviews, writing };

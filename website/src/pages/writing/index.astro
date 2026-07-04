@@ -1,0 +1,15 @@
+---
+import { getCollection } from 'astro:content';
+import CollectionPage from '../../components/CollectionPage.astro';
+
+const writing = (await getCollection('writing')).sort(
+	(a, b) => (b.data.pubDate?.valueOf() ?? 0) - (a.data.pubDate?.valueOf() ?? 0),
+);
+---
+
+<CollectionPage
+	title="Food Writing"
+	description="Reviews, essays, and observations about food beyond alternative proteins."
+	path="writing"
+	entries={writing}
+/>

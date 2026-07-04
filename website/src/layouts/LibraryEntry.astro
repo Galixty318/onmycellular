@@ -12,6 +12,7 @@ interface Props {
 	pubDate?: Date;
 	updatedDate?: Date;
 	heroImage?: ImageMetadata;
+	label?: string;
 }
 
 const {
@@ -20,6 +21,7 @@ const {
 	pubDate,
 	updatedDate,
 	heroImage,
+	label = 'Alt Protein Collection',
 } = Astro.props;
 ---
 
@@ -69,7 +71,7 @@ const {
 		<main>
 			<article>
 				<header class="entry-header">
-					<p class="entry-label">Alt Protein Collection</p>
+					<p class="entry-label">{label}</p>
 					<h1>{title}</h1>
 					{
 						(pubDate || updatedDate) && (
