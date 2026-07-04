@@ -8,15 +8,13 @@ const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
 <header class="site-header">
 	<nav class="site-nav">
 		<a class="brand" href={base} aria-label={SITE_TITLE}>
-			<span class="brand-mark" aria-hidden="true"><span></span></span>
 			<span>{SITE_TITLE}</span>
 		</a>
 		<div class="internal-links">
-			<HeaderLink href="/">Home</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
 			<HeaderLink href="/projects">Projects</HeaderLink>
 			<HeaderLink href="/reviews">Reviews</HeaderLink>
-			<HeaderLink href="/papers">Papers</HeaderLink>
+			<HeaderLink href="/papers">Summary Papers</HeaderLink>
 			<HeaderLink href="/about">About</HeaderLink>
 		</div>
 	</nav>
@@ -51,38 +49,6 @@ const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
 	}
 	.brand:hover {
 		color: var(--gold-bright);
-	}
-	.brand-mark {
-		position: relative;
-		width: 1.55rem;
-		height: 1.55rem;
-		flex: none;
-		border: 1px solid var(--gold);
-		border-radius: 50%;
-	}
-	.brand-mark::before,
-	.brand-mark::after {
-		position: absolute;
-		inset: 50% auto auto 50%;
-		width: 2rem;
-		height: 0.6rem;
-		border: 1px solid rgba(185, 167, 255, 65%);
-		border-radius: 50%;
-		content: '';
-		transform: translate(-50%, -50%) rotate(35deg);
-	}
-	.brand-mark::after {
-		transform: translate(-50%, -50%) rotate(-35deg);
-	}
-	.brand-mark span {
-		position: absolute;
-		z-index: 1;
-		inset: 50% auto auto 50%;
-		width: 0.3rem;
-		height: 0.3rem;
-		border-radius: 50%;
-		background: var(--gold-bright);
-		transform: translate(-50%, -50%);
 	}
 	.internal-links {
 		display: flex;
