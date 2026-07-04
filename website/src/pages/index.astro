@@ -5,12 +5,15 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import { papers } from '../data/papers';
+import { titleFromId } from '../utils/content';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+const projects = await getCollection('projects');
+const reviews = await getCollection('reviews');
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const itemCount = posts.length + papers.length + 1;
+const itemCount = posts.length + projects.length + reviews.length + papers.length + 1;
 ---
 
 <!doctype html>
@@ -418,8 +421,25 @@ const itemCount = posts.length + papers.length + 1;
 										<span class="chevron" aria-hidden="true"></span>
 										<span class="folder-icon" aria-hidden="true"></span>
 										<span>projects</span>
+										<span class="folder-count">{projects.length}</span>
 									</summary>
-									<p class="empty">No files yet</p>
+									{
+										projects.length ? (
+											<div class="children">
+												{projects.map((project) => (
+													<a class="file" href={`${base}/projects/${project.id}/`}>
+														<span class="file-icon" aria-hidden="true"></span>
+														<span class="file-name">
+															{project.data.title ?? titleFromId(project.id)}
+														</span>
+														<span class="badge">MD</span>
+													</a>
+												))}
+											</div>
+										) : (
+											<p class="empty">No files yet</p>
+										)
+									}
 								</details>
 
 								<details>
@@ -427,8 +447,23 @@ const itemCount = posts.length + papers.length + 1;
 										<span class="chevron" aria-hidden="true"></span>
 										<span class="folder-icon" aria-hidden="true"></span>
 										<span>reviews</span>
+										<span class="folder-count">{reviews.length}</span>
 									</summary>
-									<p class="empty">No files yet</p>
+									{
+										reviews.length ? (
+											<div class="children">
+												{reviews.map((review) => (
+													<a class="file" href={`${base}/reviews/${review.id}/`}>
+														<span class="file-icon" aria-hidden="true"></span>
+														<span class="file-name">{review.data.title ?? titleFromId(review.id)}</span>
+														<span class="badge">MD</span>
+													</a>
+												))}
+											</div>
+										) : (
+											<p class="empty">No files yet</p>
+										)
+									}
 								</details>
 
 								<details open>

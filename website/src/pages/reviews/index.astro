@@ -1,0 +1,15 @@
+---
+import { getCollection } from 'astro:content';
+import CollectionPage from '../../components/CollectionPage.astro';
+
+const reviews = (await getCollection('reviews')).sort(
+	(a, b) => (b.data.pubDate?.valueOf() ?? 0) - (a.data.pubDate?.valueOf() ?? 0),
+);
+---
+
+<CollectionPage
+	title="Reviews"
+	description="Reviews and critical summaries of research across the alternative-protein field."
+	path="reviews"
+	entries={reviews}
+/>

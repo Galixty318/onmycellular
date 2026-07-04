@@ -1,0 +1,15 @@
+---
+import { getCollection } from 'astro:content';
+import CollectionPage from '../../components/CollectionPage.astro';
+
+const projects = (await getCollection('projects')).sort(
+	(a, b) => (b.data.pubDate?.valueOf() ?? 0) - (a.data.pubDate?.valueOf() ?? 0),
+);
+---
+
+<CollectionPage
+	title="Projects"
+	description="Projects exploring alternative proteins, food systems, and bioprocess engineering."
+	path="projects"
+	entries={projects}
+/>

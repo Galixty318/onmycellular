@@ -13,7 +13,31 @@ const blog = defineCollection({
 			// Transform string to Date object
 			pubDate: z.coerce.date(),
 			updatedDate: z.coerce.date().optional(),
-		    heroImage: z.optional(image()),
+			heroImage: z.optional(image()),
+		}),
+});
+
+const projects = defineCollection({
+	loader: glob({ base: '../content/projects', pattern: '**/*.{md,mdx}' }),
+	schema: ({ image }) =>
+		z.object({
+			title: z.string().optional(),
+			description: z.string().optional(),
+			pubDate: z.coerce.date().optional(),
+			updatedDate: z.coerce.date().optional(),
+			heroImage: z.optional(image()),
+		}),
+});
+
+const reviews = defineCollection({
+	loader: glob({ base: '../content/reviews', pattern: '**/*.{md,mdx}' }),
+	schema: ({ image }) =>
+		z.object({
+			title: z.string().optional(),
+			description: z.string().optional(),
+			pubDate: z.coerce.date().optional(),
+			updatedDate: z.coerce.date().optional(),
+			heroImage: z.optional(image()),
 		}),
 });
 
@@ -21,4 +45,4 @@ const pages = defineCollection({
 	loader: glob({ base: '../content', pattern: '*.md' }),
 });
 
-export const collections = { blog, pages };
+export const collections = { blog, pages, projects, reviews };

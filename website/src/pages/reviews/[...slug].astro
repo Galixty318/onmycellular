@@ -1,0 +1,23 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import LibraryEntry from '../../layouts/LibraryEntry.astro';
+import { titleFromId } from '../../utils/content';
+
+export async function getStaticPaths() {
+	const entries = await getCollection('reviews');
+	return entries.map((entry) => ({
+		params: { slug: entry.id },
+		props: entry,
+	}));
+}
+
+type Props = CollectionEntry<'reviews'>;
+
+const entry = Astro.props;
+const { Content } = await render(entry);
+const title = entry.data.title ?? titleFromId(entry.id);
+---
+
+<LibraryEntry {...entry.data} title={title}>
+	<Content />
+</LibraryEntry>
