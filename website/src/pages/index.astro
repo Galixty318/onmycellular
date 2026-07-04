@@ -1,10 +1,16 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { papers } from '../data/papers';
 
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const itemCount = posts.length + papers.length + 1;
 ---
 
 <!doctype html>
@@ -12,34 +18,220 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
+			main {
+				width: 920px;
+			}
 			.intro {
-				margin-bottom: 3rem;
+				margin-bottom: 1.5rem;
 			}
-			.links {
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-				gap: 1rem;
-			}
-			.links a {
-				display: block;
-				padding: 1.25rem;
-				border: 1px solid rgb(var(--gray-light));
-				border-radius: 12px;
-				color: rgb(var(--black));
-				text-decoration: none;
-				box-shadow: 0 2px 8px rgba(var(--gray), 12%);
-			}
-			.links a:hover {
-				border-color: var(--accent);
-				color: var(--accent);
-			}
-			.links strong {
-				display: block;
-				margin-bottom: 0.25rem;
-			}
-			.links span {
+			.eyebrow {
+				margin: 0 0 0.35rem;
 				color: rgb(var(--gray));
-				font-size: 0.9em;
+				font-size: 0.72rem;
+				font-weight: 700;
+				letter-spacing: 0.16em;
+				text-transform: uppercase;
+			}
+			.intro h1 {
+				margin-bottom: 0.45rem;
+				font-size: clamp(2rem, 5vw, 3.5rem);
+			}
+			.intro p:last-child {
+				max-width: 680px;
+				margin: 0;
+				color: rgb(var(--gray));
+			}
+			.explorer {
+				--panel: #b86f89;
+				--panel-deep: #9f526d;
+				--panel-line: #d7a5b7;
+				--panel-text: #fff9f4;
+				--panel-muted: #f1dce3;
+				padding: clamp(1.25rem, 4vw, 2.5rem);
+				border: 1px solid rgba(255, 255, 255, 35%);
+				border-radius: 22px;
+				background:
+					radial-gradient(circle at 92% 8%, rgba(255, 255, 255, 12%), transparent 28%),
+					var(--panel);
+				color: var(--panel-text);
+				box-shadow: 0 24px 60px rgba(105, 53, 72, 20%);
+			}
+			.explorer-heading {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 1rem;
+				margin-bottom: 1.25rem;
+				padding-bottom: 1rem;
+				border-bottom: 1px solid rgba(255, 255, 255, 22%);
+			}
+			.collection-name {
+				display: flex;
+				align-items: center;
+				gap: 0.7rem;
+				margin: 0;
+				color: var(--panel-text);
+				font-size: clamp(1.2rem, 3vw, 1.7rem);
+			}
+			.collection-mark {
+				display: grid;
+				width: 2rem;
+				height: 2rem;
+				border: 2px solid #f6e75b;
+				border-radius: 9px 9px 9px 2px;
+				color: #f6e75b;
+				place-items: center;
+				transform: rotate(-3deg);
+			}
+			.item-count {
+				flex: none;
+				padding: 0.25rem 0.65rem;
+				border-radius: 999px;
+				background: rgba(74, 28, 45, 18%);
+				color: var(--panel-muted);
+				font-size: 0.72rem;
+				font-weight: 700;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+			}
+			.tree,
+			.children {
+				display: grid;
+				gap: 0.25rem;
+			}
+			.children {
+				margin: 0.25rem 0 0.25rem 0.8rem;
+				padding-left: 1.25rem;
+				border-left: 1px solid var(--panel-line);
+			}
+			details {
+				min-width: 0;
+			}
+			summary,
+			.file {
+				display: flex;
+				align-items: center;
+				gap: 0.7rem;
+				min-width: 0;
+				padding: 0.55rem 0.7rem;
+				border-radius: 9px;
+				color: var(--panel-text);
+				font-weight: 700;
+				line-height: 1.25;
+			}
+			summary {
+				cursor: pointer;
+				list-style: none;
+			}
+			summary::-webkit-details-marker {
+				display: none;
+			}
+			summary:hover,
+			.file:hover {
+				background: rgba(255, 255, 255, 12%);
+			}
+			.chevron {
+				width: 0.55rem;
+				height: 0.55rem;
+				flex: none;
+				border-right: 3px solid currentColor;
+				border-bottom: 3px solid currentColor;
+				transform: rotate(-45deg);
+				transition: transform 160ms ease;
+			}
+			details[open] > summary .chevron {
+				transform: rotate(45deg) translate(-2px, -2px);
+			}
+			.folder-icon {
+				position: relative;
+				width: 1.2rem;
+				height: 0.85rem;
+				flex: none;
+				border: 2px solid currentColor;
+				border-radius: 3px;
+				opacity: 0.9;
+			}
+			.folder-icon::before {
+				position: absolute;
+				top: -0.43rem;
+				left: -2px;
+				width: 0.55rem;
+				height: 0.35rem;
+				border: 2px solid currentColor;
+				border-bottom: 0;
+				border-radius: 3px 3px 0 0;
+				content: '';
+			}
+			.file {
+				text-decoration: none;
+			}
+			.file-icon {
+				position: relative;
+				width: 1rem;
+				height: 1.25rem;
+				flex: none;
+				border: 2px solid currentColor;
+				border-radius: 3px;
+				opacity: 0.9;
+			}
+			.file-icon::after {
+				position: absolute;
+				right: -2px;
+				bottom: 0.25rem;
+				width: 0.45rem;
+				border-top: 2px solid currentColor;
+				border-bottom: 2px solid currentColor;
+				content: '';
+			}
+			.file-name {
+				min-width: 0;
+				overflow-wrap: anywhere;
+			}
+			.badge {
+				margin-left: auto;
+				padding: 0.15rem 0.45rem;
+				border-radius: 5px;
+				background: rgba(65, 214, 255, 16%);
+				color: #89e8ff;
+				font-size: 0.65rem;
+				font-weight: 800;
+				letter-spacing: 0.12em;
+			}
+			.empty {
+				margin: 0.2rem 0 0.45rem 2.75rem;
+				color: var(--panel-muted);
+				font-size: 0.82rem;
+				font-style: italic;
+			}
+			.folder-count {
+				margin-left: auto;
+				color: var(--panel-muted);
+				font-size: 0.72rem;
+				font-weight: 400;
+			}
+			@media (max-width: 600px) {
+				main {
+					max-width: calc(100% - 1rem);
+					padding-right: 0.5rem;
+					padding-left: 0.5rem;
+				}
+				.explorer {
+					border-radius: 15px;
+				}
+				.explorer-heading {
+					align-items: flex-start;
+					flex-direction: column;
+				}
+				.children {
+					margin-left: 0.35rem;
+					padding-left: 0.65rem;
+				}
+				summary,
+				.file {
+					gap: 0.55rem;
+					padding-right: 0.35rem;
+					padding-left: 0.35rem;
+				}
 			}
 		</style>
 	</head>
@@ -47,23 +239,95 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 		<Header />
 		<main>
 			<section class="intro">
-				<h1>{SITE_TITLE}</h1>
+				<p class="eyebrow">Personal knowledge library</p>
+				<h1>Alt Protein Collection</h1>
 				<p>{SITE_DESCRIPTION}</p>
 			</section>
-			<nav class="links" aria-label="Explore the collection">
-				<a href={`${base}/blog`}>
-					<strong>Blog</strong>
-					<span>Read notes and updates.</span>
-				</a>
-				<a href={`${base}/papers`}>
-					<strong>Papers</strong>
-					<span>Browse research and coursework.</span>
-				</a>
-				<a href={`${base}/about`}>
-					<strong>About</strong>
-					<span>Learn more about Emily.</span>
-				</a>
-			</nav>
+
+			<section class="explorer" aria-labelledby="collection-heading">
+				<div class="explorer-heading">
+					<h2 class="collection-name" id="collection-heading">
+						<span class="collection-mark" aria-hidden="true">✎</span>
+						ALT PROTEIN COLLECTION
+					</h2>
+					<span class="item-count">{itemCount} files</span>
+				</div>
+
+				<nav class="tree" aria-label="Content folder">
+					<details open>
+						<summary>
+							<span class="chevron" aria-hidden="true"></span>
+							<span class="folder-icon" aria-hidden="true"></span>
+							<span>content</span>
+						</summary>
+						<div class="children">
+							<details open>
+								<summary>
+									<span class="chevron" aria-hidden="true"></span>
+									<span class="folder-icon" aria-hidden="true"></span>
+									<span>blog</span>
+									<span class="folder-count">{posts.length}</span>
+								</summary>
+								<div class="children">
+									{
+										posts.map((post) => (
+											<a class="file" href={`${base}/blog/${post.id}/`}>
+												<span class="file-icon" aria-hidden="true"></span>
+												<span class="file-name">{post.data.title}</span>
+												<span class="badge">MD</span>
+											</a>
+										))
+									}
+								</div>
+							</details>
+
+							<details>
+								<summary>
+									<span class="chevron" aria-hidden="true"></span>
+									<span class="folder-icon" aria-hidden="true"></span>
+									<span>projects</span>
+								</summary>
+								<p class="empty">No files yet</p>
+							</details>
+
+							<details>
+								<summary>
+									<span class="chevron" aria-hidden="true"></span>
+									<span class="folder-icon" aria-hidden="true"></span>
+									<span>reviews</span>
+								</summary>
+								<p class="empty">No files yet</p>
+							</details>
+
+							<details open>
+								<summary>
+									<span class="chevron" aria-hidden="true"></span>
+									<span class="folder-icon" aria-hidden="true"></span>
+									<span>summary papers</span>
+									<span class="folder-count">{papers.length}</span>
+								</summary>
+								<div class="children">
+									{
+										papers.map((paper) => (
+											<a class="file" href={paper.url} target="_blank">
+												<span class="file-icon" aria-hidden="true"></span>
+												<span class="file-name">{paper.title}</span>
+												<span class="badge">PDF</span>
+											</a>
+										))
+									}
+								</div>
+							</details>
+
+							<a class="file" href={`${base}/about`}>
+								<span class="file-icon" aria-hidden="true"></span>
+								<span class="file-name">about</span>
+								<span class="badge">MD</span>
+							</a>
+						</div>
+					</details>
+				</nav>
+			</section>
 		</main>
 		<Footer />
 	</body>
