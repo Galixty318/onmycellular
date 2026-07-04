@@ -19,89 +19,188 @@ const itemCount = posts.length + papers.length + 1;
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
 			main {
-				width: 920px;
+				width: 1060px;
+				padding-top: clamp(5rem, 10vw, 8rem);
 			}
-			.intro {
-				margin-bottom: 1.5rem;
+			.hero {
+				position: relative;
+				max-width: 900px;
+				margin: 0 auto clamp(5rem, 9vw, 8rem);
+				text-align: center;
 			}
-			.eyebrow {
-				margin: 0 0 0.35rem;
+			.status {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.55rem;
+				margin-bottom: 1.7rem;
+				padding: 0.42rem 0.85rem;
+				border: 1px solid rgba(185, 167, 255, 22%);
+				border-radius: 999px;
+				background: rgba(185, 167, 255, 6%);
 				color: rgb(var(--gray));
 				font-size: 0.72rem;
-				font-weight: 700;
-				letter-spacing: 0.16em;
+				letter-spacing: 0.08em;
 				text-transform: uppercase;
 			}
-			.intro h1 {
-				margin-bottom: 0.45rem;
-				font-size: clamp(2rem, 5vw, 3.5rem);
+			.status::before {
+				width: 0.42rem;
+				height: 0.42rem;
+				border-radius: 50%;
+				background: var(--gold);
+				box-shadow: 0 0 12px rgba(227, 195, 109, 0.65);
+				content: '';
 			}
-			.intro p:last-child {
-				max-width: 680px;
+			.hero h1 {
+				margin-bottom: 1.4rem;
+				font-size: clamp(3.1rem, 8vw, 6.2rem);
+				line-height: 0.98;
+			}
+			.hero h1 em {
+				background: linear-gradient(100deg, var(--accent) 15%, var(--gold-bright) 85%);
+				background-clip: text;
+				color: transparent;
+				font-weight: 400;
+			}
+			.hero-description {
+				max-width: 700px;
+				margin: 0 auto 2.6rem;
+				color: rgb(var(--gray));
+				font-size: clamp(1rem, 2.2vw, 1.2rem);
+			}
+			.metrics {
+				display: flex;
+				justify-content: center;
+				gap: clamp(2.5rem, 8vw, 6rem);
+				margin: 0;
+			}
+			.metric {
+				min-width: 6rem;
+			}
+			.metric strong {
+				display: block;
+				color: rgb(var(--black));
+				font-family: Georgia, 'Times New Roman', serif;
+				font-size: 2rem;
+				font-weight: 500;
+				line-height: 1;
+			}
+			.metric span {
+				display: block;
+				margin-top: 0.45rem;
+				color: rgb(var(--gray));
+				font-size: 0.66rem;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+			}
+			.library-header {
+				display: grid;
+				grid-template-columns: 1fr minmax(260px, 0.65fr);
+				align-items: end;
+				margin-bottom: 1.7rem;
+				gap: 2rem;
+			}
+			.kicker {
+				margin: 0 0 0.65rem;
+				color: var(--gold);
+				font-size: 0.7rem;
+				font-weight: 700;
+				letter-spacing: 0.14em;
+				text-transform: uppercase;
+			}
+			.library-header h2 {
+				margin: 0;
+			}
+			.library-header > p {
 				margin: 0;
 				color: rgb(var(--gray));
+				font-size: 0.92rem;
 			}
 			.explorer {
-				--panel: #b86f89;
-				--panel-deep: #9f526d;
-				--panel-line: #d7a5b7;
-				--panel-text: #fff9f4;
-				--panel-muted: #f1dce3;
-				padding: clamp(1.25rem, 4vw, 2.5rem);
-				border: 1px solid rgba(255, 255, 255, 35%);
-				border-radius: 22px;
+				--panel-text: #f4f1ff;
+				--panel-muted: #aaa5c0;
+				--panel-line: rgba(185, 167, 255, 0.18);
+				position: relative;
+				padding: clamp(1.25rem, 4vw, 2.6rem);
+				border: 1px solid var(--panel-line);
+				border-radius: 18px;
 				background:
-					radial-gradient(circle at 92% 8%, rgba(255, 255, 255, 12%), transparent 28%),
-					var(--panel);
+					linear-gradient(135deg, rgba(185, 167, 255, 7%), transparent 38%),
+					linear-gradient(180deg, rgba(22, 23, 43, 96%), rgba(13, 15, 28, 98%));
 				color: var(--panel-text);
-				box-shadow: 0 24px 60px rgba(105, 53, 72, 20%);
+				box-shadow: var(--box-shadow);
+				overflow: hidden;
+			}
+			.explorer::before {
+				position: absolute;
+				top: 0;
+				right: 12%;
+				left: 12%;
+				height: 1px;
+				background: linear-gradient(90deg, transparent, var(--accent), var(--gold), transparent);
+				content: '';
 			}
 			.explorer-heading {
 				display: flex;
 				align-items: center;
 				justify-content: space-between;
+				margin-bottom: 1.35rem;
+				padding-bottom: 1.15rem;
+				border-bottom: 1px solid var(--panel-line);
 				gap: 1rem;
-				margin-bottom: 1.25rem;
-				padding-bottom: 1rem;
-				border-bottom: 1px solid rgba(255, 255, 255, 22%);
 			}
 			.collection-name {
 				display: flex;
 				align-items: center;
-				gap: 0.7rem;
+				gap: 0.75rem;
 				margin: 0;
 				color: var(--panel-text);
-				font-size: clamp(1.2rem, 3vw, 1.7rem);
+				font-family: var(--font-atkinson);
+				font-size: 0.92rem;
+				font-weight: 700;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
 			}
 			.collection-mark {
-				display: grid;
-				width: 2rem;
-				height: 2rem;
-				border: 2px solid #f6e75b;
-				border-radius: 9px 9px 9px 2px;
-				color: #f6e75b;
-				place-items: center;
-				transform: rotate(-3deg);
+				position: relative;
+				width: 1.75rem;
+				height: 1.75rem;
+				flex: none;
+				border: 1px solid var(--gold);
+				border-radius: 50%;
+			}
+			.collection-mark::before,
+			.collection-mark::after {
+				position: absolute;
+				inset: 50% auto auto 50%;
+				width: 2.15rem;
+				height: 0.7rem;
+				border: 1px solid rgba(185, 167, 255, 55%);
+				border-radius: 50%;
+				content: '';
+				transform: translate(-50%, -50%) rotate(32deg);
+			}
+			.collection-mark::after {
+				transform: translate(-50%, -50%) rotate(-32deg);
 			}
 			.item-count {
 				flex: none;
-				padding: 0.25rem 0.65rem;
+				padding: 0.3rem 0.65rem;
+				border: 1px solid rgba(227, 195, 109, 18%);
 				border-radius: 999px;
-				background: rgba(74, 28, 45, 18%);
-				color: var(--panel-muted);
-				font-size: 0.72rem;
-				font-weight: 700;
-				letter-spacing: 0.08em;
+				background: rgba(227, 195, 109, 6%);
+				color: var(--gold-bright);
+				font-size: 0.65rem;
+				letter-spacing: 0.1em;
 				text-transform: uppercase;
 			}
 			.tree,
 			.children {
 				display: grid;
-				gap: 0.25rem;
+				gap: 0.28rem;
 			}
 			.children {
 				margin: 0.25rem 0 0.25rem 0.8rem;
-				padding-left: 1.25rem;
+				padding-left: 1.3rem;
 				border-left: 1px solid var(--panel-line);
 			}
 			details {
@@ -111,13 +210,14 @@ const itemCount = posts.length + papers.length + 1;
 			.file {
 				display: flex;
 				align-items: center;
-				gap: 0.7rem;
 				min-width: 0;
-				padding: 0.55rem 0.7rem;
-				border-radius: 9px;
+				padding: 0.62rem 0.7rem;
+				border: 1px solid transparent;
+				border-radius: 8px;
 				color: var(--panel-text);
 				font-weight: 700;
 				line-height: 1.25;
+				gap: 0.75rem;
 			}
 			summary {
 				cursor: pointer;
@@ -128,14 +228,15 @@ const itemCount = posts.length + papers.length + 1;
 			}
 			summary:hover,
 			.file:hover {
-				background: rgba(255, 255, 255, 12%);
+				border-color: rgba(185, 167, 255, 16%);
+				background: rgba(185, 167, 255, 6%);
 			}
 			.chevron {
-				width: 0.55rem;
-				height: 0.55rem;
+				width: 0.52rem;
+				height: 0.52rem;
 				flex: none;
-				border-right: 3px solid currentColor;
-				border-bottom: 3px solid currentColor;
+				border-right: 2px solid var(--accent);
+				border-bottom: 2px solid var(--accent);
 				transform: rotate(-45deg);
 				transition: transform 160ms ease;
 			}
@@ -144,43 +245,42 @@ const itemCount = posts.length + papers.length + 1;
 			}
 			.folder-icon {
 				position: relative;
-				width: 1.2rem;
-				height: 0.85rem;
+				width: 1.15rem;
+				height: 0.8rem;
 				flex: none;
-				border: 2px solid currentColor;
-				border-radius: 3px;
-				opacity: 0.9;
+				border: 1px solid var(--gold);
+				border-radius: 2px;
 			}
 			.folder-icon::before {
 				position: absolute;
-				top: -0.43rem;
-				left: -2px;
-				width: 0.55rem;
-				height: 0.35rem;
-				border: 2px solid currentColor;
+				top: -0.36rem;
+				left: -1px;
+				width: 0.48rem;
+				height: 0.3rem;
+				border: 1px solid var(--gold);
 				border-bottom: 0;
-				border-radius: 3px 3px 0 0;
+				border-radius: 2px 2px 0 0;
 				content: '';
 			}
 			.file {
+				color: rgb(var(--gray-dark));
 				text-decoration: none;
 			}
 			.file-icon {
 				position: relative;
-				width: 1rem;
-				height: 1.25rem;
+				width: 0.95rem;
+				height: 1.2rem;
 				flex: none;
-				border: 2px solid currentColor;
-				border-radius: 3px;
-				opacity: 0.9;
+				border: 1px solid var(--accent);
+				border-radius: 2px;
 			}
 			.file-icon::after {
 				position: absolute;
-				right: -2px;
+				right: -1px;
 				bottom: 0.25rem;
-				width: 0.45rem;
-				border-top: 2px solid currentColor;
-				border-bottom: 2px solid currentColor;
+				width: 0.42rem;
+				border-top: 1px solid var(--accent);
+				border-bottom: 1px solid var(--accent);
 				content: '';
 			}
 			.file-name {
@@ -189,48 +289,54 @@ const itemCount = posts.length + papers.length + 1;
 			}
 			.badge {
 				margin-left: auto;
-				padding: 0.15rem 0.45rem;
-				border-radius: 5px;
-				background: rgba(65, 214, 255, 16%);
-				color: #89e8ff;
-				font-size: 0.65rem;
+				padding: 0.16rem 0.44rem;
+				border: 1px solid rgba(227, 195, 109, 20%);
+				border-radius: 999px;
+				background: rgba(227, 195, 109, 7%);
+				color: var(--gold-bright);
+				font-size: 0.58rem;
 				font-weight: 800;
-				letter-spacing: 0.12em;
+				letter-spacing: 0.1em;
 			}
 			.empty {
-				margin: 0.2rem 0 0.45rem 2.75rem;
+				margin: 0.1rem 0 0.45rem 2.8rem;
 				color: var(--panel-muted);
-				font-size: 0.82rem;
+				font-size: 0.78rem;
 				font-style: italic;
 			}
 			.folder-count {
 				margin-left: auto;
 				color: var(--panel-muted);
-				font-size: 0.72rem;
+				font-size: 0.7rem;
 				font-weight: 400;
 			}
-			@media (max-width: 600px) {
-				main {
-					max-width: calc(100% - 1rem);
-					padding-right: 0.5rem;
-					padding-left: 0.5rem;
+			@media (max-width: 700px) {
+				.hero {
+					margin-bottom: 4.5rem;
 				}
-				.explorer {
-					border-radius: 15px;
+				.metrics {
+					gap: 1.7rem;
+				}
+				.metric {
+					min-width: 0;
+				}
+				.library-header {
+					grid-template-columns: 1fr;
+					gap: 0.7rem;
 				}
 				.explorer-heading {
 					align-items: flex-start;
 					flex-direction: column;
 				}
 				.children {
-					margin-left: 0.35rem;
+					margin-left: 0.25rem;
 					padding-left: 0.65rem;
 				}
 				summary,
 				.file {
-					gap: 0.55rem;
 					padding-right: 0.35rem;
 					padding-left: 0.35rem;
+					gap: 0.55rem;
 				}
 			}
 		</style>
@@ -238,95 +344,122 @@ const itemCount = posts.length + papers.length + 1;
 	<body>
 		<Header />
 		<main>
-			<section class="intro">
-				<p class="eyebrow">Personal knowledge library</p>
-				<h1>Alt Protein Collection</h1>
-				<p>{SITE_DESCRIPTION}</p>
+			<section class="hero">
+				<div class="status">Open knowledge collection</div>
+				<h1>Research notes for the <em>future of food</em></h1>
+				<p class="hero-description">{SITE_DESCRIPTION}</p>
+				<div class="metrics" aria-label="Collection overview">
+					<div class="metric">
+						<strong>{itemCount}</strong>
+						<span>Files live</span>
+					</div>
+					<div class="metric">
+						<strong>4</strong>
+						<span>Focus areas</span>
+					</div>
+					<div class="metric">
+						<strong>100%</strong>
+						<span>Open access</span>
+					</div>
+				</div>
 			</section>
 
-			<section class="explorer" aria-labelledby="collection-heading">
-				<div class="explorer-heading">
-					<h2 class="collection-name" id="collection-heading">
-						<span class="collection-mark" aria-hidden="true">✎</span>
-						ALT PROTEIN COLLECTION
-					</h2>
-					<span class="item-count">{itemCount} files</span>
+			<section aria-labelledby="library-heading">
+				<div class="library-header">
+					<div>
+						<p class="kicker">Browse the archive</p>
+						<h2 id="library-heading">The collection</h2>
+					</div>
+					<p>
+						Explore notes, projects, reviews, and longer papers through the same folder structure
+						used in the source library.
+					</p>
 				</div>
 
-				<nav class="tree" aria-label="Content folder">
-					<details open>
-						<summary>
-							<span class="chevron" aria-hidden="true"></span>
-							<span class="folder-icon" aria-hidden="true"></span>
-							<span>content</span>
-						</summary>
-						<div class="children">
-							<details open>
-								<summary>
-									<span class="chevron" aria-hidden="true"></span>
-									<span class="folder-icon" aria-hidden="true"></span>
-									<span>blog</span>
-									<span class="folder-count">{posts.length}</span>
-								</summary>
-								<div class="children">
-									{
-										posts.map((post) => (
-											<a class="file" href={`${base}/blog/${post.id}/`}>
-												<span class="file-icon" aria-hidden="true"></span>
-												<span class="file-name">{post.data.title}</span>
-												<span class="badge">MD</span>
-											</a>
-										))
-									}
-								</div>
-							</details>
+				<div class="explorer">
+					<div class="explorer-heading">
+						<h3 class="collection-name">
+							<span class="collection-mark" aria-hidden="true"></span>
+							ALT PROTEIN COLLECTION
+						</h3>
+						<span class="item-count">{itemCount} files</span>
+					</div>
 
-							<details>
-								<summary>
-									<span class="chevron" aria-hidden="true"></span>
-									<span class="folder-icon" aria-hidden="true"></span>
-									<span>projects</span>
-								</summary>
-								<p class="empty">No files yet</p>
-							</details>
+					<nav class="tree" aria-label="Content folder">
+						<details open>
+							<summary>
+								<span class="chevron" aria-hidden="true"></span>
+								<span class="folder-icon" aria-hidden="true"></span>
+								<span>content</span>
+							</summary>
+							<div class="children">
+								<details open>
+									<summary>
+										<span class="chevron" aria-hidden="true"></span>
+										<span class="folder-icon" aria-hidden="true"></span>
+										<span>blog</span>
+										<span class="folder-count">{posts.length}</span>
+									</summary>
+									<div class="children">
+										{
+											posts.map((post) => (
+												<a class="file" href={`${base}/blog/${post.id}/`}>
+													<span class="file-icon" aria-hidden="true"></span>
+													<span class="file-name">{post.data.title}</span>
+													<span class="badge">MD</span>
+												</a>
+											))
+										}
+									</div>
+								</details>
 
-							<details>
-								<summary>
-									<span class="chevron" aria-hidden="true"></span>
-									<span class="folder-icon" aria-hidden="true"></span>
-									<span>reviews</span>
-								</summary>
-								<p class="empty">No files yet</p>
-							</details>
+								<details>
+									<summary>
+										<span class="chevron" aria-hidden="true"></span>
+										<span class="folder-icon" aria-hidden="true"></span>
+										<span>projects</span>
+									</summary>
+									<p class="empty">No files yet</p>
+								</details>
 
-							<details open>
-								<summary>
-									<span class="chevron" aria-hidden="true"></span>
-									<span class="folder-icon" aria-hidden="true"></span>
-									<span>summary papers</span>
-									<span class="folder-count">{papers.length}</span>
-								</summary>
-								<div class="children">
-									{
-										papers.map((paper) => (
-											<a class="file" href={paper.url} target="_blank">
-												<span class="file-icon" aria-hidden="true"></span>
-												<span class="file-name">{paper.title}</span>
-												<span class="badge">PDF</span>
-											</a>
-										))
-									}
-								</div>
-							</details>
+								<details>
+									<summary>
+										<span class="chevron" aria-hidden="true"></span>
+										<span class="folder-icon" aria-hidden="true"></span>
+										<span>reviews</span>
+									</summary>
+									<p class="empty">No files yet</p>
+								</details>
 
-							<a class="file" href={`${base}/about`}>
-								<span class="file-icon" aria-hidden="true"></span>
-								<span class="file-name">about</span>
-								<span class="badge">MD</span>
-							</a>
-						</div>
-					</details>
-				</nav>
+								<details open>
+									<summary>
+										<span class="chevron" aria-hidden="true"></span>
+										<span class="folder-icon" aria-hidden="true"></span>
+										<span>summary papers</span>
+										<span class="folder-count">{papers.length}</span>
+									</summary>
+									<div class="children">
+										{
+											papers.map((paper) => (
+												<a class="file" href={paper.url} target="_blank">
+													<span class="file-icon" aria-hidden="true"></span>
+													<span class="file-name">{paper.title}</span>
+													<span class="badge">PDF</span>
+												</a>
+											))
+										}
+									</div>
+								</details>
+
+								<a class="file" href={`${base}/about`}>
+									<span class="file-icon" aria-hidden="true"></span>
+									<span class="file-name">about</span>
+									<span class="badge">MD</span>
+								</a>
+							</div>
+						</details>
+					</nav>
+				</div>
 			</section>
 		</main>
 		<Footer />

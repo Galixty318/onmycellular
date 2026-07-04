@@ -1,141 +1,188 @@
-/*
-  The CSS in this style tag is based off of Bear Blog's default CSS.
-  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
-  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
- */
-
 :root {
-	--accent: #2337ff;
-	--accent-dark: #000d8a;
-	--black: 15, 18, 25;
-	--gray: 96, 115, 159;
-	--gray-light: 229, 233, 240;
-	--gray-dark: 34, 41, 57;
-	--gray-gradient: rgba(var(--gray-light), 50%), #fff;
-	--box-shadow:
-		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
-		0 16px 32px rgba(var(--gray), 33%);
+	--accent: #b9a7ff;
+	--accent-dark: #8f78ec;
+	--gold: #e3c36d;
+	--gold-bright: #f3d986;
+	--black: 244, 241, 255;
+	--gray: 169, 166, 190;
+	--gray-light: 42, 40, 65;
+	--gray-dark: 218, 215, 232;
+	--surface: 14, 16, 30;
+	--surface-raised: 20, 21, 39;
+	--line: rgba(185, 167, 255, 0.18);
+	--gray-gradient: rgba(15, 17, 31, 0.96), rgba(8, 10, 20, 0.98);
+	--box-shadow: 0 24px 70px rgba(0, 0, 0, 0.32);
 }
+
+* {
+	box-sizing: border-box;
+}
+
+html {
+	background: #080a14;
+	scroll-behavior: smooth;
+}
+
 body {
-	font-family: var(--font-atkinson);
+	min-height: 100vh;
 	margin: 0;
-	padding: 0;
+	background:
+		radial-gradient(circle at 18% 8%, rgba(185, 167, 255, 0.1), transparent 30rem),
+		radial-gradient(circle at 82% 28%, rgba(227, 195, 109, 0.07), transparent 28rem),
+		linear-gradient(180deg, #080a14 0%, #0b0d19 55%, #080a14 100%);
+	color: rgb(var(--gray-dark));
+	font-family: var(--font-atkinson);
+	font-size: 19px;
+	line-height: 1.7;
 	text-align: left;
-	background: linear-gradient(var(--gray-gradient)) no-repeat;
-	background-size: 100% 600px;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
-	color: rgb(var(--gray-dark));
-	font-size: 20px;
-	line-height: 1.7;
 }
+
 main {
-	width: 720px;
-	max-width: calc(100% - 2em);
+	width: 760px;
+	max-width: calc(100% - 2rem);
 	margin: auto;
-	padding: 3em 1em;
+	padding: 5rem 1rem;
 }
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-	margin: 0 0 0.5rem 0;
+	margin: 0 0 0.7rem;
 	color: rgb(var(--black));
-	line-height: 1.2;
+	font-family: Georgia, 'Times New Roman', serif;
+	font-weight: 500;
+	letter-spacing: -0.025em;
+	line-height: 1.12;
 }
+
 h1 {
-	font-size: 3.052em;
+	font-size: clamp(2.7rem, 7vw, 4.8rem);
 }
+
 h2 {
-	font-size: 2.441em;
+	font-size: clamp(2rem, 5vw, 3.1rem);
 }
+
 h3 {
-	font-size: 1.953em;
+	font-size: 1.7rem;
 }
+
 h4 {
-	font-size: 1.563em;
+	font-size: 1.35rem;
 }
+
 h5 {
-	font-size: 1.25em;
+	font-size: 1.15rem;
 }
+
 strong,
 b {
+	color: rgb(var(--black));
 	font-weight: 700;
 }
+
 a {
 	color: var(--accent);
+	text-underline-offset: 0.2em;
 }
+
 a:hover {
-	color: var(--accent);
+	color: var(--gold-bright);
 }
+
 p {
-	margin-bottom: 1em;
+	margin: 0 0 1.15em;
 }
+
+.prose {
+	color: rgb(var(--gray-dark));
+}
+
 .prose p {
-	margin-bottom: 2em;
+	margin-bottom: 1.5em;
 }
-textarea {
-	width: 100%;
-	font-size: 16px;
+
+.prose li::marker {
+	color: var(--gold);
 }
+
+textarea,
 input {
-	font-size: 16px;
+	font: inherit;
 }
+
 table {
 	width: 100%;
 }
+
 img {
 	max-width: 100%;
 	height: auto;
-	border-radius: 8px;
+	border-radius: 12px;
 }
+
 code {
-	padding: 2px 5px;
-	background-color: rgb(var(--gray-light));
-	border-radius: 2px;
+	padding: 0.15em 0.35em;
+	border: 1px solid var(--line);
+	border-radius: 5px;
+	background: rgba(var(--surface-raised), 0.9);
+	color: var(--gold-bright);
 }
+
 pre {
 	padding: 1.5em;
-	border-radius: 8px;
+	border: 1px solid var(--line);
+	border-radius: 12px;
+	background: rgb(var(--surface));
+	overflow-x: auto;
 }
+
 pre > code {
 	all: unset;
 }
+
 blockquote {
-	border-left: 4px solid var(--accent);
-	padding: 0 0 0 20px;
-	margin: 0;
-	font-size: 1.333em;
+	margin: 1.5rem 0;
+	padding: 0.2rem 0 0.2rem 1.2rem;
+	border-left: 3px solid var(--gold);
+	color: rgb(var(--gray));
+	font-family: Georgia, 'Times New Roman', serif;
+	font-size: 1.2em;
 }
+
 hr {
-	border: none;
-	border-top: 1px solid rgb(var(--gray-light));
+	border: 0;
+	border-top: 1px solid var(--line);
 }
+
+::selection {
+	background: rgba(185, 167, 255, 0.35);
+	color: #fff;
+}
+
 @media (max-width: 720px) {
 	body {
-		font-size: 18px;
+		font-size: 17px;
 	}
+
 	main {
-		padding: 1em;
+		padding: 3.5rem 0.5rem;
 	}
 }
 
 .sr-only {
-	border: 0;
-	padding: 0;
-	margin: 0;
 	position: absolute !important;
-	height: 1px;
 	width: 1px;
-	overflow: hidden;
-	/* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
-	clip: rect(1px 1px 1px 1px);
-	/* maybe deprecated but we need to support legacy browsers */
-	clip: rect(1px, 1px, 1px, 1px);
-	/* modern browsers, clip-path works inwards from each corner */
-	clip-path: inset(50%);
-	/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	border: 0;
 	white-space: nowrap;
+	clip-path: inset(50%);
+	overflow: hidden;
 }
