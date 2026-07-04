@@ -1,0 +1,51 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { papers } from '../../data/papers';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title="Papers | Emily's Alt Protein Collection"
+			description="Research papers and coursework on alternative proteins and food systems."
+		/>
+		<style>
+			.paper-list {
+				list-style: none;
+				padding: 0;
+			}
+			.paper-list li {
+				padding: 1.25rem 0;
+				border-bottom: 1px solid rgb(var(--gray-light));
+			}
+			.paper-list h2 {
+				margin-bottom: 0.25rem;
+				font-size: 1.4em;
+			}
+			.paper-list p {
+				margin: 0 0 0.75rem;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Papers</h1>
+			<ul class="paper-list">
+				{
+					papers.map((paper) => (
+						<li>
+							<h2>{paper.title}</h2>
+							<p>{paper.description}</p>
+							<a href={paper.url} target="_blank">Read PDF</a>
+						</li>
+					))
+				}
+			</ul>
+		</main>
+		<Footer />
+	</body>
+</html>
