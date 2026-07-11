@@ -18,6 +18,6 @@ const { Content } = await render(entry);
 const title = entry.data.title ?? titleFromId(entry.id);
 ---
 
-<LibraryEntry {...entry.data} title={title} label="Summaries">
+<LibraryEntry {...entry.data} title={title} label="Summaries/Notes">
 	<Content />
 </LibraryEntry>
