@@ -13,8 +13,10 @@ const posts = (await getCollection('blog')).sort(
 const projects = await getCollection('projects');
 const reviews = await getCollection('reviews');
 const writing = await getCollection('writing');
+const summaries = await getCollection('summaries');
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const itemCount = posts.length + projects.length + reviews.length + writing.length + papers.length + 1;
+const itemCount =
+	posts.length + projects.length + reviews.length + writing.length + summaries.length + papers.length + 1;
 ---
 
 <!doctype html>
@@ -496,9 +498,20 @@ const itemCount = posts.length + projects.length + reviews.length + writing.leng
 										<span class="chevron" aria-hidden="true"></span>
 										<span class="folder-icon" aria-hidden="true"></span>
 										<span>summaries</span>
-										<span class="folder-count">{papers.length}</span>
+										<span class="folder-count">{summaries.length + papers.length}</span>
 									</summary>
 									<div class="children">
+										{
+											summaries.map((summary) => (
+												<a class="file" href={`${base}/papers/${summary.id}/`}>
+													<span class="file-icon" aria-hidden="true"></span>
+													<span class="file-name">
+														{summary.data.title ?? titleFromId(summary.id)}
+													</span>
+													<span class="badge">MD</span>
+												</a>
+											))
+										}
 										{
 											papers.map((paper) => (
 												<a class="file" href={paper.url} target="_blank">

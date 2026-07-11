@@ -2,7 +2,12 @@
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
+import { getCollection } from 'astro:content';
 import { papers } from '../../data/papers';
+import { titleFromId } from '../../utils/content';
+
+const summaries = await getCollection('summaries');
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <!doctype html>
@@ -28,6 +33,15 @@ import { papers } from '../../data/papers';
 			.paper-list p {
 				margin: 0 0 0.75rem;
 			}
+			.paper-type {
+				display: inline-block;
+				margin-bottom: 0.6rem;
+				color: var(--gold);
+				font-size: 0.7rem;
+				font-weight: 700;
+				letter-spacing: 0.12em;
+				text-transform: uppercase;
+			}
 		</style>
 	</head>
 	<body>
@@ -36,8 +50,19 @@ import { papers } from '../../data/papers';
 			<h1>Summaries</h1>
 			<ul class="paper-list">
 				{
+					summaries.map((summary) => (
+						<li>
+							<span class="paper-type">Markdown</span>
+							<h2>{summary.data.title ?? titleFromId(summary.id)}</h2>
+							{summary.data.description && <p>{summary.data.description}</p>}
+							<a href={`${base}/papers/${summary.id}/`}>Read summary</a>
+						</li>
+					))
+				}
+				{
 					papers.map((paper) => (
 						<li>
+							<span class="paper-type">PDF</span>
 							<h2>{paper.title}</h2>
 							<p>{paper.description}</p>
 							<a href={paper.url} target="_blank">Read PDF</a>
