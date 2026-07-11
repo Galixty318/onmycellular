@@ -71,6 +71,34 @@ const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
 			color 160ms ease,
 			text-shadow 160ms ease;
 	}
+	.internal-links :global(a)::after {
+		position: absolute;
+		right: -0.18rem;
+		bottom: 0.62rem;
+		left: -0.18rem;
+		height: 2px;
+		border-radius: 999px;
+		background: linear-gradient(
+			90deg,
+			transparent 0%,
+			rgba(243, 217, 134, 0.9) 14%,
+			var(--gold-bright) 24%,
+			var(--accent-bright) 50%,
+			var(--gold-bright) 76%,
+			rgba(243, 217, 134, 0.9) 86%,
+			transparent 100%
+		);
+		box-shadow:
+			0 0 4px rgba(216, 204, 255, 0.5),
+			0 0 7px rgba(227, 195, 109, 0.28);
+		content: '';
+		opacity: 0;
+		pointer-events: none;
+		transform: scaleX(0.7);
+		transition:
+			opacity 160ms ease,
+			transform 160ms ease;
+	}
 	.internal-links :global(a:hover),
 	.internal-links :global(a.active) {
 		color: var(--gold-bright);
@@ -83,27 +111,10 @@ const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
 		color: transparent;
 		-webkit-text-fill-color: transparent;
 	}
+	.internal-links :global(a:hover)::after,
 	.internal-links :global(a.active)::after {
-		position: absolute;
-		right: -0.3rem;
-		bottom: -4px;
-		left: -0.3rem;
-		height: 9px;
-		border-radius: 999px;
-		background:
-			radial-gradient(ellipse at center, rgba(243, 217, 134, 0.7) 0%, rgba(243, 217, 134, 0) 62%),
-			linear-gradient(
-				90deg,
-				transparent 0%,
-				rgba(185, 167, 255, 0.15) 14%,
-				var(--accent-bright) 36%,
-				var(--gold-bright) 64%,
-				rgba(227, 195, 109, 0.15) 86%,
-				transparent 100%
-			);
-		filter: blur(1.5px);
-		content: '';
-		pointer-events: none;
+		opacity: 1;
+		transform: scaleX(1);
 	}
 	@media (max-width: 1050px) {
 		.site-nav {
