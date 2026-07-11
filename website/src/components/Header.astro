@@ -82,12 +82,25 @@ const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
 	}
 	.internal-links :global(a.active)::after {
 		position: absolute;
-		right: 0;
-		bottom: -1px;
-		left: 0;
-		height: 2px;
-		background: linear-gradient(90deg, var(--accent), var(--gold));
+		right: -0.3rem;
+		bottom: -4px;
+		left: -0.3rem;
+		height: 9px;
+		border-radius: 999px;
+		background:
+			radial-gradient(ellipse at center, rgba(243, 217, 134, 0.7) 0%, rgba(243, 217, 134, 0) 62%),
+			linear-gradient(
+				90deg,
+				transparent 0%,
+				rgba(185, 167, 255, 0.15) 14%,
+				var(--accent-bright) 36%,
+				var(--gold-bright) 64%,
+				rgba(227, 195, 109, 0.15) 86%,
+				transparent 100%
+			);
+		filter: blur(1.5px);
 		content: '';
+		pointer-events: none;
 	}
 	@media (max-width: 1050px) {
 		.site-nav {
