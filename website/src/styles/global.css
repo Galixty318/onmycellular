@@ -2,6 +2,7 @@
 	--accent: #b9a7ff;
 	--accent-bright: #d8ccff;
 	--accent-dark: #8f78ec;
+	--bold-accent: #a9ad57;
 	--gold: #e3c36d;
 	--gold-bright: #f3d986;
 	--black: 244, 241, 255;
@@ -89,7 +90,7 @@ h5 {
 
 strong,
 b {
-	color: rgb(var(--black));
+	color: var(--bold-accent);
 	font-weight: 700;
 }
 
