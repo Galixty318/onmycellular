@@ -26,7 +26,7 @@ const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
 		z-index: 10;
 		top: 0;
 		border-bottom: 1px solid rgba(185, 167, 255, 14%);
-		background: rgba(8, 10, 20, 86%);
+		background: rgba(23, 20, 42, 86%);
 		backdrop-filter: blur(16px);
 	}
 	.site-nav {
@@ -50,6 +50,7 @@ const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
 	}
 	.brand:hover {
 		color: var(--gold-bright);
+		text-shadow: var(--glow-shadow);
 	}
 	.internal-links {
 		display: flex;
@@ -63,10 +64,21 @@ const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
 		font-size: 0.84rem;
 		letter-spacing: 0.04em;
 		text-decoration: none;
+		transition:
+			color 160ms ease,
+			text-shadow 160ms ease;
 	}
 	.internal-links :global(a:hover),
 	.internal-links :global(a.active) {
-		color: rgb(var(--black));
+		color: var(--gold-bright);
+		text-shadow: var(--glow-shadow);
+	}
+	.internal-links :global(a:hover) {
+		background-image: var(--glow-gradient);
+		background-clip: text;
+		-webkit-background-clip: text;
+		color: transparent;
+		-webkit-text-fill-color: transparent;
 	}
 	.internal-links :global(a.active)::after {
 		position: absolute;

@@ -65,7 +65,16 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 			}
 			ul li a:hover h4,
 			ul li a:hover .date {
-				color: rgb(var(--accent));
+				color: var(--gold-bright);
+				text-shadow: var(--glow-shadow);
+			}
+			ul li a:hover h4 {
+				background-image: var(--glow-gradient);
+				background-clip: text;
+				-webkit-background-clip: text;
+				color: transparent;
+				-webkit-text-fill-color: transparent;
+				filter: drop-shadow(0 0 9px rgba(185, 167, 255, 0.45));
 			}
 			ul a:hover img {
 				box-shadow: var(--box-shadow);

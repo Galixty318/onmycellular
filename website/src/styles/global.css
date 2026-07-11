@@ -1,17 +1,20 @@
 :root {
 	--accent: #b9a7ff;
+	--accent-bright: #d8ccff;
 	--accent-dark: #8f78ec;
 	--gold: #e3c36d;
 	--gold-bright: #f3d986;
 	--black: 244, 241, 255;
-	--gray: 169, 166, 190;
-	--gray-light: 42, 40, 65;
-	--gray-dark: 218, 215, 232;
-	--surface: 14, 16, 30;
-	--surface-raised: 20, 21, 39;
-	--line: rgba(185, 167, 255, 0.18);
-	--gray-gradient: rgba(15, 17, 31, 0.96), rgba(8, 10, 20, 0.98);
-	--box-shadow: 0 24px 70px rgba(0, 0, 0, 0.32);
+	--gray: 185, 179, 207;
+	--gray-light: 55, 49, 82;
+	--gray-dark: 230, 226, 244;
+	--surface: 23, 20, 42;
+	--surface-raised: 34, 29, 57;
+	--line: rgba(216, 204, 255, 0.2);
+	--gray-gradient: rgba(28, 24, 51, 0.96), rgba(17, 15, 34, 0.98);
+	--box-shadow: 0 24px 70px rgba(27, 19, 51, 0.34);
+	--glow-gradient: linear-gradient(90deg, var(--accent-bright), var(--gold-bright));
+	--glow-shadow: 0 0 14px rgba(185, 167, 255, 0.55), 0 0 22px rgba(227, 195, 109, 0.28);
 	--font-body: 'Urbanist', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 	--font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
 	--font-quote: 'Gilda Display', Georgia, 'Times New Roman', serif;
@@ -22,7 +25,7 @@
 }
 
 html {
-	background: #080a14;
+	background: #111024;
 	scroll-behavior: smooth;
 }
 
@@ -30,9 +33,9 @@ body {
 	min-height: 100vh;
 	margin: 0;
 	background:
-		radial-gradient(circle at 18% 8%, rgba(185, 167, 255, 0.1), transparent 30rem),
-		radial-gradient(circle at 82% 28%, rgba(227, 195, 109, 0.07), transparent 28rem),
-		linear-gradient(180deg, #080a14 0%, #0b0d19 55%, #080a14 100%);
+		radial-gradient(circle at 18% 8%, rgba(201, 188, 255, 0.2), transparent 31rem),
+		radial-gradient(circle at 82% 28%, rgba(227, 195, 109, 0.1), transparent 29rem),
+		linear-gradient(180deg, #17142a 0%, #1d1835 52%, #131126 100%);
 	color: rgb(var(--gray-dark));
 	font-family: var(--font-body);
 	font-weight: 500;
@@ -97,6 +100,7 @@ a {
 
 a:hover {
 	color: var(--gold-bright);
+	text-shadow: var(--glow-shadow);
 }
 
 p {

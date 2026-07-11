@@ -30,6 +30,25 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 				margin-bottom: 0.25rem;
 				font-size: 1.4em;
 			}
+			.paper-title-link {
+				display: inline-block;
+				color: rgb(var(--black));
+				text-decoration: none;
+				transition:
+					filter 160ms ease,
+					text-shadow 160ms ease,
+					transform 160ms ease;
+			}
+			.paper-title-link:hover {
+				background-image: var(--glow-gradient);
+				background-clip: text;
+				-webkit-background-clip: text;
+				color: transparent;
+				-webkit-text-fill-color: transparent;
+				filter: drop-shadow(0 0 10px rgba(185, 167, 255, 0.5));
+				text-shadow: var(--glow-shadow);
+				transform: translateX(3px);
+			}
 			.paper-list p {
 				margin: 0 0 0.75rem;
 			}
@@ -53,9 +72,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 					summaries.map((summary) => (
 						<li>
 							<span class="paper-type">Markdown</span>
-							<h2>{summary.data.title ?? titleFromId(summary.id)}</h2>
+							<h2>
+								<a class="paper-title-link" href={`${base}/papers/${summary.id}/`}>
+									{summary.data.title ?? titleFromId(summary.id)}
+								</a>
+							</h2>
 							{summary.data.description && <p>{summary.data.description}</p>}
-							<a href={`${base}/papers/${summary.id}/`}>Read summary</a>
 						</li>
 					))
 				}
@@ -63,9 +85,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 					papers.map((paper) => (
 						<li>
 							<span class="paper-type">PDF</span>
-							<h2>{paper.title}</h2>
+							<h2>
+								<a class="paper-title-link" href={paper.url} target="_blank">
+									{paper.title}
+								</a>
+							</h2>
 							<p>{paper.description}</p>
-							<a href={paper.url} target="_blank">Read PDF</a>
 						</li>
 					))
 				}
