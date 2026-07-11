@@ -1,0 +1,61 @@
+{
+  "ok": true,
+  "strip": "/Users/emily/Library/Mobile Documents/iCloud~md~obsidian/Documents/Summer 2026/Noted/ALT PROTEIN COLLECTION/.pet-runs/sumi-v2/decoded/look-cardinals.png",
+  "directions": [
+    "000",
+    "090",
+    "180",
+    "270"
+  ],
+  "errors": [],
+  "anchors": [
+    {
+      "direction": "000",
+      "source_box": [
+        0,
+        0,
+        543,
+        724
+      ],
+      "used_pixels": 89092,
+      "edge_pixels": 0,
+      "output": "/Users/emily/Library/Mobile Documents/iCloud~md~obsidian/Documents/Summer 2026/Noted/ALT PROTEIN COLLECTION/.pet-runs/sumi-v2/decoded/look-anchors/000.png"
+    },
+    {
+      "direction": "090",
+      "source_box": [
+        543,
+        0,
+        1086,
+        724
+      ],
+      "used_pixels": 92107,
+      "edge_pixels": 0,
+      "output": "/Users/emily/Library/Mobile Documents/iCloud~md~obsidian/Documents/Summer 2026/Noted/ALT PROTEIN COLLECTION/.pet-runs/sumi-v2/decoded/look-anchors/090.png"
+    },
+    {
+      "direction": "180",
+      "source_box": [
+        1086,
+        0,
+        1629,
+        724
+      ],
+      "used_pixels": 84556,
+      "edge_pixels": 0,
+      "output": "/Users/emily/Library/Mobile Documents/iCloud~md~obsidian/Documents/Summer 2026/Noted/ALT PROTEIN COLLECTION/.pet-runs/sumi-v2/decoded/look-anchors/180.png"
+    },
+    {
+      "direction": "270",
+      "source_box": [
+        1629,
+        0,
+        2172,
+        724
+      ],
+      "used_pixels": 89653,
+      "edge_pixels": 0,
+      "output": "/Users/emily/Library/Mobile Documents/iCloud~md~obsidian/Documents/Summer 2026/Noted/ALT PROTEIN COLLECTION/.pet-runs/sumi-v2/decoded/look-anchors/270.png"
+    }
+  ]
+}
