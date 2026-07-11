@@ -13,6 +13,8 @@
 	--gray-gradient: rgba(15, 17, 31, 0.96), rgba(8, 10, 20, 0.98);
 	--box-shadow: 0 24px 70px rgba(0, 0, 0, 0.32);
 	--font-body: 'Urbanist', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	--font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
+	--font-quote: 'Gilda Display', Georgia, 'Times New Roman', serif;
 }
 
 * {
@@ -56,7 +58,7 @@ h5,
 h6 {
 	margin: 0 0 0.7rem;
 	color: rgb(var(--black));
-	font-family: Georgia, 'Times New Roman', serif;
+	font-family: var(--font-heading);
 	font-weight: 500;
 	letter-spacing: -0.025em;
 	line-height: 1.12;
@@ -153,7 +155,8 @@ blockquote {
 	padding: 0.2rem 0 0.2rem 1.2rem;
 	border-left: 3px solid var(--gold);
 	color: rgb(var(--gray));
-	font-family: Georgia, 'Times New Roman', serif;
+	font-family: var(--font-quote);
+	font-weight: 400;
 	font-size: 1.2em;
 }
 
