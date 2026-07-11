@@ -13,7 +13,7 @@
 - The authors warn against simply sticking to the mindset of "adapting pharmaceutical R&D to cellular agriculture." Those methods were developed with a completely different goal in mind, so simple adaptations are likely insufficient for goals such as high-volume production. 
 
 ---
-### Trends, challenges, and opportunities for the United States alternative meat and seafood sector: stakeholder-informed perspectives
+### Trends, challenges, and opportunities for the United States alternative meat and seafood sector: stakeholder-informed perspectives (2026, Wood et al.)
 [DOI](https://doi.org/10.1038/s41538-026-00841-4)
 
 - 20 diverse stakeholders in the alternative protein industry were interviewed. But those who were contacted to be interviewed, and had more publicly unfavorable stances against the industry, declined. So, results may be skewed and not wholly representative. 
@@ -33,3 +33,6 @@
 - A useful point of view to get policy makers' interests would be to emphasize that the US is letting China take the global lead in APs by not investing more resources to streamlining domestic development. Alongside that would be emphasizing domestic food-independance, American job growth, and national security.
 - The all vegan or nothing narrative that some companies took earlier on in the industry's existence is not sustainable and likely harmed the perception of APs. Many now see the rebranding from the AP products being replacements and "alternatives" for conventional meat to "complimentary" to them. 
 - There is also heavy concern about the shift in consumer consciousness towards associating health with level of processing, so many are turned off by APs due to their processing heavy production. A similar type of fear to that of GMOs could and probably does befall the AP industry considerably. 
+---
+### Cultivated meat fabrication: A review of the latest cell biology, bioprocess (2026, Takahashi et al.)
+[DOI](https://doi.org/10.1016/j.tifs.2025.105505)
