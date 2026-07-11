@@ -12,6 +12,7 @@
 - A **"Turing Test"** (a way to evaluate the ability of a machine to exhibit intelligence via imitating natural dialog) for meat should be developed in order for cultured meat to truly substitute for the conventional stuff. 
 - The authors warn against simply sticking to the mindset of "adapting pharmaceutical R&D to cellular agriculture." Those methods were developed with a completely different goal in mind, so simple adaptations are likely insufficient for goals such as high-volume production. 
 
+---
 ### Trends, challenges, and opportunities for the United States alternative meat and seafood sector: stakeholder-informed perspectives
 [DOI](https://doi.org/10.1038/s41538-026-00841-4)
 
