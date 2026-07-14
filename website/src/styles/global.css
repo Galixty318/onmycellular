@@ -1,21 +1,21 @@
 :root {
-	--accent: #b9a7ff;
-	--accent-bright: #d8ccff;
-	--accent-dark: #8f78ec;
-	--bold-accent: #c8b9ff;
-	--gold: #e3c36d;
-	--gold-bright: #f3d986;
+	--accent: #9e4a60;
+	--accent-bright: #d9765f;
+	--accent-dark: #582d4f;
+	--bold-accent: #f9f871;
+	--gold: #fab25c;
+	--gold-bright: #f9f871;
 	--black: 244, 241, 255;
-	--gray: 185, 179, 207;
-	--gray-light: 55, 49, 82;
-	--gray-dark: 230, 226, 244;
-	--surface: 23, 20, 42;
-	--surface-raised: 34, 29, 57;
-	--line: rgba(216, 204, 255, 0.2);
-	--gray-gradient: rgba(28, 24, 51, 0.96), rgba(17, 15, 34, 0.98);
-	--box-shadow: 0 24px 70px rgba(27, 19, 51, 0.34);
-	--glow-gradient: linear-gradient(90deg, var(--accent-bright), var(--gold-bright));
-	--glow-shadow: 0 0 14px rgba(185, 167, 255, 0.55), 0 0 22px rgba(227, 195, 109, 0.28);
+	--gray: 216, 205, 232;
+	--gray-light: 88, 45, 79;
+	--gray-dark: 236, 226, 244;
+	--surface: 24, 20, 44;
+	--surface-raised: 47, 31, 58;
+	--line: rgba(158, 74, 96, 0.32);
+	--gray-gradient: rgba(24, 20, 44, 0.96), rgba(88, 45, 79, 0.58);
+	--box-shadow: 0 24px 70px rgba(24, 20, 44, 0.38);
+	--glow-gradient: linear-gradient(90deg, var(--accent), var(--accent-bright), var(--gold));
+	--glow-shadow: 0 0 14px rgba(217, 118, 95, 0.5), 0 0 22px rgba(250, 178, 92, 0.24);
 	--font-body: 'Urbanist', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 	--font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
 	--font-quote: 'Gilda Display', Georgia, 'Times New Roman', serif;
@@ -26,7 +26,7 @@
 }
 
 html {
-	background: #111024;
+	background: #18142c;
 	scroll-behavior: smooth;
 }
 
@@ -34,9 +34,9 @@ body {
 	min-height: 100vh;
 	margin: 0;
 	background:
-		radial-gradient(circle at 18% 8%, rgba(201, 188, 255, 0.2), transparent 31rem),
-		radial-gradient(circle at 82% 28%, rgba(227, 195, 109, 0.1), transparent 29rem),
-		linear-gradient(180deg, #17142a 0%, #1d1835 52%, #131126 100%);
+		radial-gradient(circle at 18% 8%, rgba(158, 74, 96, 0.28), transparent 31rem),
+		radial-gradient(circle at 82% 28%, rgba(217, 118, 95, 0.14), transparent 29rem),
+		linear-gradient(180deg, #18142c 0%, #2a1832 52%, #18142c 100%);
 	color: rgb(var(--gray-dark));
 	font-family: var(--font-body);
 	font-weight: 500;

@@ -40,9 +40,9 @@ const itemCount =
 				gap: 0.55rem;
 				margin-bottom: 1.7rem;
 				padding: 0.42rem 0.85rem;
-				border: 1px solid rgba(185, 167, 255, 22%);
+				border: 1px solid rgba(158, 74, 96, 45%);
 				border-radius: 999px;
-				background: rgba(185, 167, 255, 6%);
+				background: rgba(88, 45, 79, 20%);
 				color: rgb(var(--gray));
 				font-size: 0.72rem;
 				letter-spacing: 0.08em;
@@ -53,7 +53,7 @@ const itemCount =
 				height: 0.42rem;
 				border-radius: 50%;
 				background: var(--gold);
-				box-shadow: 0 0 12px rgba(227, 195, 109, 0.65);
+				box-shadow: 0 0 12px rgba(250, 178, 92, 0.65);
 				content: '';
 			}
 			.hero h1 {
@@ -65,7 +65,13 @@ const itemCount =
 			.hero h1 em {
 				display: inline-block;
 				padding: 0.06em 0.03em 0.14em;
-				background: linear-gradient(100deg, var(--accent) 15%, var(--gold-bright) 85%);
+				background: linear-gradient(
+					100deg,
+					#9e4a60 8%,
+					#d9765f 42%,
+					#fab25c 72%,
+					#f9f871 100%
+				);
 				background-clip: text;
 				-webkit-background-clip: text;
 				color: transparent;
@@ -129,15 +135,15 @@ const itemCount =
 			}
 			.explorer {
 				--panel-text: #f4f1ff;
-				--panel-muted: #aaa5c0;
-				--panel-line: rgba(216, 204, 255, 0.22);
+				--panel-muted: #d8cde8;
+				--panel-line: rgba(158, 74, 96, 0.4);
 				position: relative;
 				padding: clamp(1.25rem, 4vw, 2.6rem);
 				border: 1px solid var(--panel-line);
 				border-radius: 18px;
 				background:
-					linear-gradient(135deg, rgba(216, 204, 255, 12%), transparent 40%),
-					linear-gradient(180deg, rgba(40, 34, 66, 96%), rgba(27, 23, 48, 98%));
+					linear-gradient(135deg, rgba(158, 74, 96, 18%), transparent 40%),
+					linear-gradient(180deg, rgba(47, 31, 58, 96%), rgba(24, 20, 44, 98%));
 				color: var(--panel-text);
 				box-shadow: var(--box-shadow);
 				overflow: hidden;
@@ -197,9 +203,9 @@ const itemCount =
 			.item-count {
 				flex: none;
 				padding: 0.3rem 0.65rem;
-				border: 1px solid rgba(227, 195, 109, 18%);
+				border: 1px solid rgba(250, 178, 92, 24%);
 				border-radius: 999px;
-				background: rgba(227, 195, 109, 6%);
+				background: rgba(250, 178, 92, 9%);
 				color: var(--gold-bright);
 				font-size: 0.65rem;
 				letter-spacing: 0.1em;
@@ -240,9 +246,9 @@ const itemCount =
 			}
 			summary:hover,
 			.file:hover {
-				border-color: rgba(227, 195, 109, 28%);
-				background: rgba(216, 204, 255, 8%);
-				box-shadow: 0 0 18px rgba(185, 167, 255, 0.18), 0 0 20px rgba(227, 195, 109, 0.1);
+				border-color: rgba(250, 178, 92, 32%);
+				background: rgba(158, 74, 96, 12%);
+				box-shadow: 0 0 18px rgba(158, 74, 96, 0.2), 0 0 20px rgba(250, 178, 92, 0.1);
 			}
 			.file:hover .file-name,
 			summary:hover > span:not(.chevron):not(.folder-icon):not(.folder-count) {
@@ -251,7 +257,7 @@ const itemCount =
 				-webkit-background-clip: text;
 				color: transparent;
 				-webkit-text-fill-color: transparent;
-				filter: drop-shadow(0 0 8px rgba(185, 167, 255, 0.45));
+				filter: drop-shadow(0 0 8px rgba(217, 118, 95, 0.45));
 			}
 			.chevron {
 				width: 0.52rem;
@@ -312,9 +318,9 @@ const itemCount =
 			.badge {
 				margin-left: auto;
 				padding: 0.16rem 0.44rem;
-				border: 1px solid rgba(227, 195, 109, 20%);
+				border: 1px solid rgba(250, 178, 92, 24%);
 				border-radius: 999px;
-				background: rgba(227, 195, 109, 7%);
+				background: rgba(250, 178, 92, 9%);
 				color: var(--gold-bright);
 				font-size: 0.58rem;
 				font-weight: 800;
