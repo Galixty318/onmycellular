@@ -18,7 +18,7 @@ const blog = defineCollection({
 });
 
 const projects = defineCollection({
-	loader: glob({ base: '../content/projects', pattern: '**/*.{md,mdx}' }),
+	loader: glob({ base: '../content/projects', pattern: '*.{md,mdx}' }),
 	schema: ({ image }) =>
 		z.object({
 			title: z.string().optional(),
@@ -27,6 +27,57 @@ const projects = defineCollection({
 			updatedDate: z.coerce.date().optional(),
 			heroImage: z.optional(image()),
 		}),
+});
+
+const overviewSteps = defineCollection({
+	loader: glob({ base: '../content/projects/the-overview-project/steps', pattern: '**/*.{md,mdx}' }),
+	schema: z.object({
+		title: z.string(),
+		slug: z.string(),
+		order: z.number(),
+		description: z.string(),
+		icon: z.enum(['source', 'proliferation', 'differentiation', 'formation', 'harvest', 'processing']),
+		substeps: z.array(
+			z.object({
+				title: z.string(),
+				slug: z.string(),
+				order: z.number(),
+				description: z.string(),
+			}),
+		),
+	}),
+});
+
+const overviewMethods = defineCollection({
+	loader: glob({
+		base: '../content/projects/the-overview-project/methods',
+		pattern: '**/*.{md,mdx}',
+		generateId: ({ entry }) => entry.replace(/\.(md|mdx)$/, ''),
+	}),
+	schema: z.object({
+		title: z.string(),
+		slug: z.string(),
+		step: z.string(),
+		substep: z.string(),
+		order: z.number(),
+		description: z.string(),
+		sections: z.array(
+			z.object({
+				label: z.string(),
+				title: z.string(),
+				description: z.string(),
+				items: z.array(z.string()).optional(),
+				pros: z.array(z.string()).optional(),
+				cons: z.array(z.string()).optional(),
+			}),
+		),
+		sources: z.array(
+			z.object({
+				citation: z.string(),
+				url: z.string().url().optional(),
+			}),
+		),
+	}),
 });
 
 const reviews = defineCollection({
@@ -69,4 +120,13 @@ const pages = defineCollection({
 	loader: glob({ base: '../content', pattern: '*.md' }),
 });
 
-export const collections = { blog, pages, projects, reviews, summaries, writing };
+export const collections = {
+	blog,
+	overviewMethods,
+	overviewSteps,
+	pages,
+	projects,
+	reviews,
+	summaries,
+	writing,
+};

@@ -1,8 +1,10 @@
 // @ts-check
 
 import mdx from '@astrojs/mdx';
+import { unified } from '@astrojs/markdown-remark';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
+import remarkOverviewCitations from './src/utils/remark-overview-citations.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,6 +15,9 @@ export default defineConfig({
 		inlineStylesheets: 'always',
 	},
 	integrations: [mdx(), sitemap()],
+	markdown: {
+		processor: unified({ remarkPlugins: [remarkOverviewCitations] }),
+	},
 	fonts: [
 		{
 			provider: fontProviders.local(),

@@ -5,7 +5,7 @@ import { titleFromId } from '../../utils/content';
 
 export async function getStaticPaths() {
 	const entries = await getCollection('projects');
-	return entries.map((entry) => ({
+	return entries.filter((entry) => entry.id !== 'the-overview-project').map((entry) => ({
 		params: { slug: entry.id },
 		props: entry,
 	}));

@@ -1,0 +1,81 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../../components/BaseHead.astro';
+import Footer from '../../../components/Footer.astro';
+import Header from '../../../components/Header.astro';
+import OverviewIcon from '../../../components/OverviewIcon.astro';
+import '../../../styles/overview.css';
+
+const steps = (await getCollection('overviewSteps')).sort((a, b) => a.data.order - b.data.order);
+const firstStep = steps[0];
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const stepHref = (slug: string) => `${base}/projects/the-overview-project/${slug}/`;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title="The Overview Project | Emily's Alt Protein Collection"
+			description="An interactive guide to the cultivated-meat process, from cell sourcing through food processing."
+		/>
+	</head>
+	<body>
+		<Header />
+		<main class="overview-main">
+			<div class="overview-crumbs"><a href={`${base}/projects/`}>Projects</a><span>/</span><span>The Overview Project</span></div>
+			<header class="overview-hero">
+				<p class="overview-kicker">Interactive process map</p>
+				<h1>The <em>Overview</em> Project</h1>
+				<p class="overview-lede">Follow cultivated meat from its biological starting point to a finished food. Select any stage for a summary, then enter its exploration page to compare sub-steps and methods.</p>
+			</header>
+			<p class="timeline-instruction">Select a stage to preview it</p>
+			<section class="timeline-shell" aria-label="Cultivated-meat process timeline">
+				<div class="overview-timeline">
+					<svg class="timeline-track" viewBox="0 0 900 300" preserveAspectRatio="none" aria-hidden="true">
+						<defs><linearGradient id="overview-line-gradient"><stop stop-color="#9e4a60"></stop><stop offset=".55" stop-color="#d9765f"></stop><stop offset="1" stop-color="#fab25c"></stop></linearGradient></defs>
+						<path d="M60 240 V60 H390 V240 H720 V60 H840"></path>
+					</svg>
+					{steps.map((step, index) => (
+						<button
+							type="button"
+							class:list={['timeline-stage', { 'is-selected': index === 0 }]}
+							data-order={step.data.order}
+							data-title={step.data.title}
+							data-description={step.data.description}
+							data-href={stepHref(step.data.slug)}
+						>
+							<span class="timeline-stage-number">{String(step.data.order).padStart(2, '0')}</span>
+							<span><span class="timeline-stage-title">{step.data.title}</span><span class="timeline-stage-meta">{step.data.substeps.length} sub-steps</span></span>
+							<OverviewIcon name={step.data.icon} />
+						</button>
+					))}
+				</div>
+				<div class="timeline-selection" aria-live="polite">
+					<div>
+						<p class="selection-label">Overview first · Step <span id="selected-step-number">{String(firstStep.data.order).padStart(2, '0')}</span></p>
+						<h2 id="selected-step-title">{firstStep.data.title}</h2>
+						<p class="selection-copy" id="selected-step-copy">{firstStep.data.description}</p>
+					</div>
+					<a class="overview-cta" id="selected-step-link" href={stepHref(firstStep.data.slug)}>Explore this step</a>
+				</div>
+			</section>
+		</main>
+		<Footer />
+		<script>
+			const stages = document.querySelectorAll<HTMLButtonElement>('.timeline-stage');
+			const number = document.querySelector<HTMLElement>('#selected-step-number');
+			const title = document.querySelector<HTMLElement>('#selected-step-title');
+			const copy = document.querySelector<HTMLElement>('#selected-step-copy');
+			const link = document.querySelector<HTMLAnchorElement>('#selected-step-link');
+			stages.forEach((stage) => stage.addEventListener('click', () => {
+				stages.forEach((item) => item.classList.remove('is-selected'));
+				stage.classList.add('is-selected');
+				if (number) number.textContent = stage.dataset.order?.padStart(2, '0') ?? '';
+				if (title) title.textContent = stage.dataset.title ?? '';
+				if (copy) copy.textContent = stage.dataset.description ?? '';
+				if (link) link.href = stage.dataset.href ?? '#';
+			}));
+		</script>
+	</body>
+</html>
