@@ -68,14 +68,19 @@ const stepHref = (slug: string) => `${base}/projects/the-overview-project/${slug
 			const title = document.querySelector<HTMLElement>('#selected-step-title');
 			const copy = document.querySelector<HTMLElement>('#selected-step-copy');
 			const link = document.querySelector<HTMLAnchorElement>('#selected-step-link');
-			stages.forEach((stage) => stage.addEventListener('click', () => {
-				stages.forEach((item) => item.classList.remove('is-selected'));
-				stage.classList.add('is-selected');
-				if (number) number.textContent = stage.dataset.order?.padStart(2, '0') ?? '';
-				if (title) title.textContent = stage.dataset.title ?? '';
-				if (copy) copy.textContent = stage.dataset.description ?? '';
-				if (link) link.href = stage.dataset.href ?? '#';
-			}));
+			stages.forEach((stage) => {
+				stage.addEventListener('click', () => {
+					stages.forEach((item) => item.classList.remove('is-selected'));
+					stage.classList.add('is-selected');
+					if (number) number.textContent = stage.dataset.order?.padStart(2, '0') ?? '';
+					if (title) title.textContent = stage.dataset.title ?? '';
+					if (copy) copy.textContent = stage.dataset.description ?? '';
+					if (link) link.href = stage.dataset.href ?? '#';
+				});
+				stage.addEventListener('dblclick', () => {
+					if (stage.dataset.href) window.location.assign(stage.dataset.href);
+				});
+			});
 		</script>
 	</body>
 </html>
