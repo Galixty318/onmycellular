@@ -1,4 +1,4 @@
-import termPaperUrl from '../../../content/summary papers/FDSC 4170 Term Paper SPR 2026.pdf?url';
+import termPaperUrl from '../../../content/summaries-notes/FDSC 4170 Term Paper SPR 2026.pdf?url';
 
 export const papers = [
 	{

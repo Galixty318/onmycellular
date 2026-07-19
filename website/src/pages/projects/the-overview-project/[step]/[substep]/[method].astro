@@ -1,34 +1,31 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { getCollection } from 'astro:content';
 import BaseHead from '../../../../../components/BaseHead.astro';
 import Footer from '../../../../../components/Footer.astro';
 import Header from '../../../../../components/Header.astro';
-import { withCitationLinks } from '../../../../../utils/overview';
+import { parseOverviewStep, renderOverviewMarkdown } from '../../../../../utils/overview';
 import '../../../../../styles/overview.css';
 
 export async function getStaticPaths() {
-	const [methods, steps] = await Promise.all([
-		getCollection('overviewMethods'),
-		getCollection('overviewSteps'),
-	]);
-	return methods.map((method) => ({
-		params: {
-			step: method.data.step,
-			substep: method.data.substep,
-			method: method.data.slug,
-		},
-		props: {
-			method,
-			step: steps.find((candidate) => candidate.data.slug === method.data.step),
-		},
-	}));
+	const steps = await getCollection('overviewSteps');
+	return steps.flatMap((step) => {
+		const parsedStep = parseOverviewStep(step.body ?? '', step.data.title);
+		return parsedStep.substeps.flatMap((substep) => substep.methods.map((method) => ({
+			params: { step: step.data.slug, substep: substep.slug, method: method.slug },
+			props: { method, step, substep },
+		})));
+	});
 }
 
-const { method, step } = Astro.props;
-if (!step) throw new Error(`Missing overview step for ${method.id}`);
-const substep = step.data.substeps.find((candidate) => candidate.slug === method.data.substep);
-if (!substep) throw new Error(`Missing sub-step for ${method.id}`);
-const { Content } = await render(method);
+const { method, step, substep } = Astro.props;
+const methodOverview = await renderOverviewMarkdown(method.overview, { citations: true });
+const sections = await Promise.all(method.sections.map(async (section) => ({
+	...section,
+	descriptionHtml: await renderOverviewMarkdown(section.description, { citations: true, inline: true }),
+	itemsHtml: section.items ? await Promise.all(section.items.map((item) => renderOverviewMarkdown(item, { citations: true, inline: true }))) : undefined,
+	prosHtml: section.pros ? await Promise.all(section.pros.map((item) => renderOverviewMarkdown(item, { citations: true, inline: true }))) : undefined,
+	consHtml: section.cons ? await Promise.all(section.cons.map((item) => renderOverviewMarkdown(item, { citations: true, inline: true }))) : undefined,
+})));
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const projectHref = `${base}/projects/the-overview-project/`;
 const stepHref = `${projectHref}${step.data.slug}/`;
@@ -36,27 +33,27 @@ const stepHref = `${projectHref}${step.data.slug}/`;
 
 <!doctype html>
 <html lang="en">
-	<head><BaseHead title={`${method.data.title} | The Overview Project`} description={method.data.description} /></head>
+	<head><BaseHead title={`${method.title} | The Overview Project`} description={method.description} /></head>
 	<body>
 		<Header />
 		<main class="overview-main">
-			<div class="overview-crumbs"><a href={projectHref}>The Overview Project</a><span>/</span><a href={stepHref}>{step.data.title}</a><span>/</span><span>{method.data.title}</span></div>
+			<div class="overview-crumbs"><a href={projectHref}>The Overview Project</a><span>/</span><a href={stepHref}>{step.data.title}</a><span>/</span><span>{method.title}</span></div>
 			<article class="method-panel">
 				<p class="overview-kicker">{substep.title} · Method</p>
-				<h1>{method.data.title}</h1>
-				<div class="method-overview"><p class="overview-label">Method overview</p><Content /></div>
+				<h1>{method.title}</h1>
+				<div class="method-overview"><p class="overview-label">Method overview</p><div set:html={methodOverview} /></div>
 				<div class="research-frames">
-					{method.data.sections.map((section) => (
+					{sections.map((section) => (
 						<section class="research-frame">
 							<div class="frame-rail"><span class="frame-type">{section.label}</span></div>
 							<div class="frame-body">
 								<h2>{section.title}</h2>
-								<p set:html={withCitationLinks(section.description)} />
-								{section.items && <ol class="frame-items">{section.items.map((item) => <li set:html={withCitationLinks(item)} />)}</ol>}
-								{(section.pros || section.cons) && (
+								<p set:html={section.descriptionHtml} />
+								{section.itemsHtml && <ol class="frame-items">{section.itemsHtml.map((item) => <li set:html={item} />)}</ol>}
+								{(section.prosHtml || section.consHtml) && (
 									<div class="pros-cons">
-										{section.pros && <section><h3>Potential advantages</h3><ul>{section.pros.map((item) => <li set:html={withCitationLinks(item)} />)}</ul></section>}
-										{section.cons && <section><h3>Limitations and tradeoffs</h3><ul>{section.cons.map((item) => <li set:html={withCitationLinks(item)} />)}</ul></section>}
+										{section.prosHtml && <section><h3>Potential advantages</h3><ul>{section.prosHtml.map((item) => <li set:html={item} />)}</ul></section>}
+										{section.consHtml && <section><h3>Limitations and tradeoffs</h3><ul>{section.consHtml.map((item) => <li set:html={item} />)}</ul></section>}
 									</div>
 								)}
 							</div>
@@ -66,7 +63,7 @@ const stepHref = `${projectHref}${step.data.slug}/`;
 				<section class="sources" id="sources">
 					<div class="sources-header"><div><p class="overview-kicker">Reference layer</p><h2>Sources</h2></div><p>Bracketed citations correspond to this list</p></div>
 					<ol class="source-list">
-						{method.data.sources.map((source, index) => <li id={`source-${index + 1}`}>{source.url ? <a href={source.url}>{source.citation}</a> : <span>{source.citation}</span>}</li>)}
+						{method.sources.map((source, index) => <li id={`source-${index + 1}`}>{source.url ? <a href={source.url}>{source.citation}</a> : <span>{source.citation}</span>}</li>)}
 					</ol>
 				</section>
 			</article>

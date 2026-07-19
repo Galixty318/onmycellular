@@ -4,7 +4,7 @@ import mdx from '@astrojs/mdx';
 import { unified } from '@astrojs/markdown-remark';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
-import remarkOverviewCitations from './src/utils/remark-overview-citations.mjs';
+import remarkSummaryTags from './src/utils/remark-summary-tags.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -16,7 +16,7 @@ export default defineConfig({
 	},
 	integrations: [mdx(), sitemap()],
 	markdown: {
-		processor: unified({ remarkPlugins: [remarkOverviewCitations] }),
+		processor: unified({ remarkPlugins: [remarkSummaryTags] }),
 	},
 	fonts: [
 		{

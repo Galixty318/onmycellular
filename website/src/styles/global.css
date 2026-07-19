@@ -122,6 +122,27 @@ p {
 	color: var(--gold);
 }
 
+.note-tags {
+	display: flex;
+	margin: -0.15rem 0 1.15rem;
+	flex-wrap: wrap;
+	gap: 0.45rem;
+}
+
+.note-tag {
+	display: inline-flex;
+	align-items: center;
+	padding: 0.24rem 0.65rem;
+	border: 1px solid rgba(250, 178, 92, 0.42);
+	border-radius: 999px;
+	background: rgba(250, 178, 92, 0.09);
+	color: var(--gold-bright);
+	font-size: 0.72rem;
+	font-weight: 700;
+	letter-spacing: 0.035em;
+	line-height: 1.35;
+}
+
 textarea,
 input {
 	font: inherit;

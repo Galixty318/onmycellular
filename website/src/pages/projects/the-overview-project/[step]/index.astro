@@ -1,8 +1,9 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { getCollection } from 'astro:content';
 import BaseHead from '../../../../components/BaseHead.astro';
 import Footer from '../../../../components/Footer.astro';
 import Header from '../../../../components/Header.astro';
+import { parseOverviewStep, renderOverviewMarkdown } from '../../../../utils/overview';
 import '../../../../styles/overview.css';
 
 export async function getStaticPaths() {
@@ -11,10 +12,8 @@ export async function getStaticPaths() {
 }
 
 const { step } = Astro.props;
-const methods = (await getCollection('overviewMethods'))
-	.filter((method) => method.data.step === step.data.slug)
-	.sort((a, b) => a.data.order - b.data.order);
-const { Content } = await render(step);
+const parsedStep = parseOverviewStep(step.body ?? '', step.data.title);
+const stepOverview = await renderOverviewMarkdown(parsedStep.overview);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const projectHref = `${base}/projects/the-overview-project/`;
 const methodHref = (substep: string, slug: string) => `${projectHref}${step.data.slug}/${substep}/${slug}/`;
@@ -30,30 +29,34 @@ const methodHref = (substep: string, slug: string) => `${projectHref}${step.data
 			<header class="step-head">
 				<p class="step-number">Step {String(step.data.order).padStart(2, '0')} of 06</p>
 				<h1>{step.data.title}</h1>
-				<div class="step-overview"><p class="overview-label">Step overview</p><Content /></div>
+				<div class="step-overview"><p class="overview-label">Step overview</p><div set:html={stepOverview} /></div>
 			</header>
 			<div class="substeps">
-				{step.data.substeps.sort((a, b) => a.order - b.order).map((substep) => {
-					const substepMethods = methods.filter((method) => method.data.substep === substep.slug);
+				{await Promise.all(parsedStep.substeps.map(async (substep) => {
+					const substepDescription = await renderOverviewMarkdown(substep.description, { inline: true });
+					const methods = await Promise.all(substep.methods.map(async (method) => ({
+						...method,
+						descriptionHtml: await renderOverviewMarkdown(method.description, { inline: true }),
+					})));
 					return (
 						<section class="substep-section">
 							<header class="substep-header">
 								<div><p class="substep-number">Sub-step {String(substep.order).padStart(2, '0')}</p><h2>{substep.title}</h2></div>
-								<p>{substep.description}</p>
+								<p set:html={substepDescription} />
 							</header>
 							<div class="method-cards">
-								{substepMethods.map((method, index) => (
-									<a class="method-card" href={methodHref(substep.slug, method.data.slug)}>
-										<span class="method-tag">Method {String(index + 1).padStart(2, '0')}</span>
-										<h3>{method.data.title}</h3>
-										<p>{method.data.description}</p>
+								{methods.map((method) => (
+									<a class="method-card" href={methodHref(substep.slug, method.slug)}>
+										<span class="method-tag">Method {String(method.order).padStart(2, '0')}</span>
+										<h3>{method.title}</h3>
+										<p set:html={method.descriptionHtml} />
 										<span class="method-link">Read the in-depth page</span>
 									</a>
 								))}
 							</div>
 						</section>
 					);
-				})}
+				}))}
 			</div>
 		</main>
 		<Footer />
